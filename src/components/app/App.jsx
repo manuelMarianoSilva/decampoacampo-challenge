@@ -1,4 +1,3 @@
-import { useGetPokemonsPaginatedQuery } from '../../services/pokemonApi'
 import { useGetPokemonsPaginated } from '../../hooks/useGetPokemonsPaginated.js'
 import { ListItem } from '../listItem/ListItem'
 import { PokemonList } from '../pokemonList/PokemonList'

@@ -8,7 +8,11 @@ export const pokemonApi = createApi({
       query: ({ limit = 20, offset = 0 } = {}) =>
         `pokemon/?limit=${limit}&offset=${offset}`,
     }),
+    getPokemonById: builder.query({
+      query: (id) => `https://pokeapi.co/api/v2/pokemon/${id}/`
+
+    })
   }),
 })
 
-export const { useGetPokemonsPaginatedQuery } = pokemonApi
+export const { useGetPokemonsPaginatedQuery, useGetPokemonByIdQuery } = pokemonApi

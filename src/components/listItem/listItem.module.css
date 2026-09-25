@@ -1,8 +1,9 @@
 .listRow {
-    display: flex;
-    flex-direction: row;
+    display: grid;
+    grid-template-columns: 360px 96px 48px; /* name | image | star — adjust widths to taste */
     align-items: center;
     justify-content: center;
+    column-gap: 1.5rem;
     transition: background-color 0.15s ease, transform 0.15s ease;
 }
 
@@ -13,14 +14,21 @@
 
 .fontPokemon {
   font-family: 'Pokemon Solid', sans-serif;
-}
-
-.imagePlaceholder {
-  height: 4rem;
+  text-align: left; 
+  margin-bottom: 0.25rem;
 }
 
 .imageWrapper {
     position: relative;
-    width: 96px;   /* match your sprite size */
+    width: 96px;
     height: 96px;
+    justify-self: left; /* centers the image within its column */
+}
+
+.imagePlaceholder {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
