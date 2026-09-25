@@ -1,0 +1,19 @@
+.scrollContainer {
+    overflow: auto;
+    height: 100vh;
+}
+
+.spacer {
+  height: var(--total-size);
+  position: relative;
+  width: 100%;
+}
+
+.row {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: var(--row-size);
+  transform: translateY(var(--row-start));
+}

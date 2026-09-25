@@ -14,3 +14,13 @@
 .fontPokemon {
   font-family: 'Pokemon Solid', sans-serif;
 }
+
+.imagePlaceholder {
+  height: 4rem;
+}
+
+.imageWrapper {
+    position: relative;
+    width: 96px;   /* match your sprite size */
+    height: 96px;
+}

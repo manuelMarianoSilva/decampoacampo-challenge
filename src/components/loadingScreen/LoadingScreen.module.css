@@ -1,0 +1,9 @@
+.spinner {
+    height: 4rem;
+    margin-block: 1rem;
+}
+
+.spinnerContainer {
+    margin-top: auto;
+    margin-bottom: auto;
+}
