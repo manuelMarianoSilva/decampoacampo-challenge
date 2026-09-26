@@ -1,8 +1,6 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
 import { BASE_URL, TOTAL_TYPES } from '../utils/constants'
 
-// real elemental types only; excludes 'unknown'/'shadow' placeholders
-
 export const pokemonApi = createApi({
   reducerPath: 'pokemonApi',
   baseQuery: fetchBaseQuery({ baseUrl: BASE_URL }),
@@ -13,18 +11,19 @@ export const pokemonApi = createApi({
     }),
 
     getPokemonById: builder.query({
-      query: (id) => `https://pokeapi.co/api/v2/pokemon/${id}/`,
+      query: (id) => `${BASE_URL}pokemon/${id}/`,
     }),
 
     // Fetches all 18 types ONCE, builds a { [pokemonId]: ["fire", "flying"] } map.
     // No matter how many items scroll into view, this never runs more than once per session.
+    // real elemental types only; excludes 'unknown'/'shadow' placeholders
     getTypeIndex: builder.query({
       queryFn: async (_arg, _queryApi, _extraOptions, fetchWithBQ) => {
         const typeIds = Array.from({ length: TOTAL_TYPES }, (_, i) => i + 1)
 
         const results = await Promise.all(
           typeIds.map((id) =>
-            fetchWithBQ(`https://pokeapi.co/api/v2/type/${id}/`)
+            fetchWithBQ(`${BASE_URL}type/${id}/`)
           )
         )
 
