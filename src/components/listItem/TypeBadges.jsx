@@ -1,11 +1,22 @@
+import { Lottie } from "lottie-react";
 import { typeIndex } from "../typeBadges/typeIndex";
+import { useGetTypeIndexQuery } from "../../services/pokemonApi";
+import loader from "../../assets/animations/blue line loader.json"
+import styles from "./ListItem.module.css"
 
-export const TypeBadges = ({data}) => {
-    const types = data?.types.map(type => type.type.url.match(/\/(\d+)\/?$/)[1]);
+export const TypeBadges = ({id}) => {
+    const { data: allTypes, isLoading } = useGetTypeIndexQuery()    
+    const pokemonTypes = allTypes?.[id];
 
+    if (!pokemonTypes || pokemonTypes.length === 0) {
+        return (
+            <Lottie src={loader} autoplay loop className={styles.lineLoader}/>
+        )
+    }
+    
     return (
-        <div style={{ display: "flex" }}>
-            {types?.map((idx) => (
+        <div className={styles.badgeContainer}>
+            {pokemonTypes?.map((idx) => (
                 typeIndex?.[idx].default
             ))}
         </div>

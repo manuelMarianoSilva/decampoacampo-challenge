@@ -18,7 +18,7 @@ export const PokemonList = () => {
     count: hasMore ? items.length + 1 : items.length,
     getScrollElement: () => parentRef.current,
     estimateSize: () => ROW_HEIGHT,
-    overscan: 5,
+    overscan: 25,
   })
 
   const virtualItems = rowVirtualizer.getVirtualItems()

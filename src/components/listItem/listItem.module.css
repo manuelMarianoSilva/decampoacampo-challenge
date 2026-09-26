@@ -37,3 +37,11 @@
   display: flex;
   flex-direction: column;
 }
+
+.lineLoader {
+  width: 10rem
+}
+
+.badgeContainer {
+  display: flex;
+}
