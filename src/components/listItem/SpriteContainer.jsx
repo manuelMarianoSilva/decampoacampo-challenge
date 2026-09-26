@@ -1,5 +1,4 @@
-import star from "../../assets/animations/Star.json";
-import pokeball from "../../assets/animations/Pokeball rotation animation.json";
+import pokeball from "../../assets/animations/pokeball_rotation.json";
 import pokeballDefault from "../../assets/images/International_Pokémon_logo.svg"; // your fallback image
 import { useState } from "react";
 import styles from "./ListItem.module.css"

@@ -1,5 +1,5 @@
 import { Lottie } from "lottie-react"
-import bulbasaur from "../../assets/animations/001 Bulbasaur.json"
+import bulbasaur from "../../assets/animations/bulbasaur_run.json"
 import styles from "./LoadingMoreItems.module.css"
 
 export const LoadingMoreItems = () => {

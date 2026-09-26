@@ -1,7 +1,7 @@
 import { Lottie } from "lottie-react";
 import { typeIndex } from "../typeBadges/typeIndex";
 import { useGetTypeIndexQuery } from "../../services/pokemonApi";
-import loader from "../../assets/animations/blue line loader.json"
+import loader from "../../assets/animations/blue_line_loader.json"
 import styles from "./ListItem.module.css"
 
 export const TypeBadges = ({id}) => {

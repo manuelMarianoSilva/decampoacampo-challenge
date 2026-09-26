@@ -1,7 +1,6 @@
 import { useState } from "react";
 import { Lottie } from "lottie-react";
 import styles from "./ListItem.module.css";
-import star from "../../assets/animations/Star.json";
 import { FavoriteButton } from "../favoriteButton/FavoriteButton";
 import { SpriteContainer } from "./SpriteContainer";
 import { typeIndex } from "../typeBadges/typeIndex";
