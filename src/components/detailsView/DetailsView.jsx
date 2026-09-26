@@ -44,7 +44,7 @@ export const DetailsView = () => {
     const navigate = useNavigate()
     const [searchParams] = useSearchParams()
     const pokemonId = searchParams.get("id");
-    const { data: pokemon, isLoading, error } = useGetPokemonById(pokemonId)
+    const { data: pokemon, isLoading, error, refetch } = useGetPokemonById(pokemonId)
 
     if (isLoading) {
         return <LoadingScreen />
@@ -54,6 +54,7 @@ export const DetailsView = () => {
         return (
             <>
                 <button onClick={() => navigate("/")} className={styles.backButton}>Back</button>
+                <button onClick={() => refetch()} className={styles.backButton}>Retry</button>
                 <p>There was a problem loading Pokémon data, please try again.</p>
             </>
         )

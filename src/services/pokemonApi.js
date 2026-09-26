@@ -8,10 +8,12 @@ export const pokemonApi = createApi({
     getPokemonsPaginated: builder.query({
       query: ({ limit = 20, offset = 0 } = {}) =>
         `pokemon/?limit=${limit}&offset=${offset}`,
+      keepUnusedDataFor: Infinity // This is the main component the user will always return to, hang on to this data
     }),
 
     getPokemonById: builder.query({
       query: (id) => `${BASE_URL}pokemon/${id}/`,
+      keepUnusedDataFor: 300
     }),
 
     // Fetches all 18 types ONCE, builds a { [pokemonId]: ["fire", "flying"] } map.
