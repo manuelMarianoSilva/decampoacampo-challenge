@@ -7,29 +7,27 @@ import { useGetPokemonByIdQuery } from "../../services/pokemonApi";
 import { SpriteContainer } from "./SpriteContainer";
 import { useGetPokemonById } from "../../hooks/useGetPokemonById";
 import { typeIndex } from "../typeBadges/typeIndex";
+import { TypeBadges } from "./TypeBadges";
 
 export const ListItem = ({ pokemon }) => {
 
     const id = pokemon?.url.match(/\/pokemon\/(\d+)\//)?.[1];
     const { data, isLoading, isFetching, error } = useGetPokemonById(id)
 
-    const types = data?.types.map(type => type.type.url.match(/\/(\d+)\/?$/)[1]);
+    // const types = data?.types.map(type => type.type.url.match(/\/(\d+)\/?$/)[1]);
 
-    console.log(types);
-    
+
     return (
-        <div className={styles.listRow}>
-            <div style={{display: "flex", flexDirection: "column"}}>
-            <span className={styles.fontPokemon}>{id} - {pokemon.name}</span>
-            <div style={{display: "flex"}}>
-             {types?.map((idx) => (
-                typeIndex?.[idx].default
-            ))}
+        <div className={styles.listRow} key={`pokemon-id-${id}`}>
+            <div>
+                <input type="checkbox" />
             </div>
+            <div className={styles.nameAndBadgesContainer}>
+                <span className={styles.fontPokemon}>{id} - {pokemon.name}</span>
+                <TypeBadges data={data}/>
             </div>
-            <SpriteContainer id={id} name={pokemon.name}/>
+            <SpriteContainer id={id} name={pokemon.name} />
             <FavoriteButton />
-           
         </div>
     );
 };

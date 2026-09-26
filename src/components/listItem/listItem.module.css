@@ -1,6 +1,6 @@
 .listRow {
     display: grid;
-    grid-template-columns: 360px 96px 48px; /* name | image | star — adjust widths to taste */
+    grid-template-columns: 50px 360px 96px 48px; /* checkbox | name | image | star — adjust widths to taste */
     align-items: center;
     justify-content: center;
     column-gap: 1.5rem;
@@ -8,7 +8,7 @@
 }
 
 .listRow:hover {
-  background-color: #f5f5f5;
+  background-color: #f5f5f5; /* rgba(245, 245, 245, 0.1); */
   transform: translateX(2px);
 }
 
@@ -22,7 +22,7 @@
     position: relative;
     width: 96px;
     height: 96px;
-    justify-self: left; /* centers the image within its column */
+    justify-self: left;
 }
 
 .imagePlaceholder {
@@ -31,4 +31,9 @@
   display: flex;
   align-items: center;
   justify-content: center;
+}
+
+.nameAndBadgesContainer {
+  display: flex;
+  flex-direction: column;
 }
