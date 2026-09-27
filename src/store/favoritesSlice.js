@@ -1,5 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit'
 
+export const MAX_FAVORITES = 6
+
 const initialState = {
   ids: [],
 }
@@ -13,7 +15,9 @@ const favoritesSlice = createSlice({
       const favoriteIndex = state.ids.indexOf(pokemonId)
 
       if (favoriteIndex === -1) {
-        state.ids.push(pokemonId)
+        if (state.ids.length < MAX_FAVORITES) {
+          state.ids.push(pokemonId)
+        }
       } else {
         state.ids.splice(favoriteIndex, 1)
       }

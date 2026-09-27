@@ -13,7 +13,7 @@ import {
 import storageImport from 'redux-persist/lib/storage'
 import { pokemonApi } from '../services/pokemonApi'
 import pokemonListReducer from './pokemonListSlice'
-import favoritesReducer from './favoritesSlice'
+import favoritesReducer, { MAX_FAVORITES } from './favoritesSlice'
 
 const storage = storageImport.default ?? storageImport
 
@@ -41,10 +41,17 @@ const listPersistConfig = {
   whitelist: ['scrollTop'],
 }
 
+const favoriteIdsLimitTransform = createTransform(
+  (ids = []) => (Array.isArray(ids) ? ids.slice(0, MAX_FAVORITES) : []),
+  (ids = []) => (Array.isArray(ids) ? ids.slice(0, MAX_FAVORITES) : []),
+  { whitelist: ['ids'] },
+)
+
 const favoritesPersistConfig = {
   key: 'favorites',
   storage,
   whitelist: ['ids'],
+  transforms: [favoriteIdsLimitTransform],
 }
 
 const rootReducer = combineReducers({

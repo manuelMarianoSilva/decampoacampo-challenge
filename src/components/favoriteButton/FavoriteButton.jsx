@@ -4,7 +4,7 @@ import { Lottie } from "lottie-react";
 import { toast } from "sonner";
 import { useDispatch, useSelector } from "react-redux";
 import star from "../../assets/animations/starburst.json";
-import { favoriteToggled } from "../../store/favoritesSlice";
+import { favoriteToggled, MAX_FAVORITES } from "../../store/favoritesSlice";
 import styles from "./FavoriteButton.module.css";
 
 const favoriteFrame = 21;
@@ -17,6 +17,7 @@ export const FavoriteButton = ({ pokemonId, pokemonName }) => {
   const isFavorite = useSelector((state) =>
     state.favorites.ids.includes(pokemonId),
   );
+  const favoriteCount = useSelector((state) => state.favorites.ids.length);
   const capitalizedPokemonName =
     pokemonName.charAt(0).toUpperCase() + pokemonName.slice(1);
   const isFavoriteRef = useRef(isFavorite);
@@ -27,14 +28,20 @@ export const FavoriteButton = ({ pokemonId, pokemonName }) => {
 
   const handleClick = (event) => {
     event.stopPropagation();
+
+    const isAddingFavorite = !isFavorite;
+    if (isAddingFavorite && favoriteCount >= MAX_FAVORITES) {
+      toast("You can only select six favourite Pokémon");
+      return;
+    }
+
     if (isAnimating) return;
 
     const animation = lottieRef.current;
     if (animation) {
       setIsAnimating(true);
-      const nextIsFavorite = !isFavorite;
       animation.playSegments(
-        nextIsFavorite ? [0, segmentEnd] : [segmentEnd, 0],
+        isAddingFavorite ? [0, segmentEnd] : [segmentEnd, 0],
       );
     }
 
