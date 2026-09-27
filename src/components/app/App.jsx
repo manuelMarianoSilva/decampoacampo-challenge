@@ -1,5 +1,5 @@
 import { DetailsView } from '../detailsView/DetailsView.jsx'
-import { PokemonList } from '../pokemonList/pokemonList.jsx'
+import { PokemonListRoute } from '../pokemonList/pokemonList.jsx'
 import { FavoritesView } from '../favorites/FavoritesView.jsx'
 import { CompareView } from '../compareView/CompareView.jsx'
 import { Route, Routes } from 'react-router'
@@ -14,7 +14,7 @@ const App = () => {
    <OnlineIndicator />
   </header>
    <Routes>
-     <Route path="/" element={<PokemonList />}/>
+    <Route path="/" element={<PokemonListRoute />}/>
      <Route path="details" element={<DetailsView />} />
      <Route path="favorites" element={<FavoritesView/>} />
     <Route path="compare" element={<CompareView />} />

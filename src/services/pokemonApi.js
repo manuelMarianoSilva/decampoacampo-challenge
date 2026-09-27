@@ -1,14 +1,23 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
-import { BASE_URL, TOTAL_TYPES, TOTAL_GENERATIONS } from '../utils/constants'
+import {
+  BASE_URL,
+  PERSISTED_PAGE_MAX_AGE_SECONDS,
+  TOTAL_TYPES,
+  TOTAL_GENERATIONS,
+} from '../utils/constants'
+import { apiCacheRehydrated } from '../store/apiCacheActions.js'
 
 export const pokemonApi = createApi({
   reducerPath: 'pokemonApi',
   baseQuery: fetchBaseQuery({ baseUrl: BASE_URL }),
+  extractRehydrationInfo(action) {
+    if (apiCacheRehydrated.match(action)) return action.payload
+  },
   endpoints: (builder) => ({
     getPokemonsPaginated: builder.query({
       query: ({ limit = 200, offset = 0 } = {}) =>
         `pokemon/?limit=${limit}&offset=${offset}`,
-      keepUnusedDataFor: 300, // 5 minutes
+      keepUnusedDataFor: PERSISTED_PAGE_MAX_AGE_SECONDS,
     }),
 
     getPokemonById: builder.query({

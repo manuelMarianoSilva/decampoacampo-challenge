@@ -49,7 +49,7 @@ export const PokemonList = () => {
     generations,
     isLoading: generationsLoading,
     error: generationsError,
-  } = useGetGenerations({ skip: !filters.generation })
+  } = useGetGenerations()
   const typeId = typeNameIndex[filters.type]
   const filterIndexLoading = Boolean(
     (filters.type && typesLoading) || (filters.generation && generationsLoading),
@@ -252,4 +252,10 @@ export const PokemonList = () => {
       </footer>
     </div>
   )
+}
+
+export const PokemonListRoute = () => {
+  const cacheHydrated = useSelector((state) => state.pokemonList.cacheHydrated)
+
+  return cacheHydrated ? <PokemonList /> : <LoadingScreen />
 }
