@@ -13,6 +13,7 @@ import {
 import storageImport from 'redux-persist/lib/storage'
 import { pokemonApi } from '../services/pokemonApi'
 import pokemonListReducer from './pokemonListSlice'
+import favoritesReducer from './favoritesSlice'
 
 const storage = storageImport.default ?? storageImport
 
@@ -40,9 +41,16 @@ const listPersistConfig = {
   whitelist: ['scrollTop'],
 }
 
+const favoritesPersistConfig = {
+  key: 'favorites',
+  storage,
+  whitelist: ['ids'],
+}
+
 const rootReducer = combineReducers({
   [pokemonApi.reducerPath]: persistReducer(apiPersistConfig, pokemonApi.reducer),
   pokemonList: persistReducer(listPersistConfig, pokemonListReducer),
+  favorites: persistReducer(favoritesPersistConfig, favoritesReducer),
 })
 
 export const store = configureStore({

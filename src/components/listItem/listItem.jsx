@@ -17,15 +17,12 @@ export const ListItem = ({ pokemon }) => {
 
     return (
         <div className={styles.listRow} key={`pokemon-id-${id}`} onClick={openDetails}>
-            <div>
-                <input type="checkbox" />
-            </div>
             <div className={styles.nameAndBadgesContainer}>
                 <span className={styles.fontPokemon}>{id} - {pokemon.name}</span>
                 <TypeBadges id={id}/>
             </div>
             <SpriteContainer id={id} name={pokemon.name} />
-            <FavoriteButton />
+            <FavoriteButton pokemonId={id} />
         </div>
     );
 };

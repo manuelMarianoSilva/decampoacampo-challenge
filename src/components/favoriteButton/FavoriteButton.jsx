@@ -1,28 +1,69 @@
 
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Lottie } from "lottie-react";
+import { useDispatch, useSelector } from "react-redux";
 import star from "../../assets/animations/starburst.json";
+import { favoriteToggled } from "../../store/favoritesSlice";
 import styles from "./FavoriteButton.module.css";
 
-export const FavoriteButton = () => {
+const favoriteFrame = 21;
+const segmentEnd = favoriteFrame + 1;
+
+export const FavoriteButton = ({ pokemonId }) => {
   const lottieRef = useRef(null);
-  const [isPlayingForward, setIsPlayingForward] = useState(true);
   const [isAnimating, setIsAnimating] = useState(false);
+  const dispatch = useDispatch();
+  const isFavorite = useSelector((state) =>
+    state.favorites.ids.includes(pokemonId),
+  );
+  const isFavoriteRef = useRef(isFavorite);
 
-  const handleClick = () => {
+  useEffect(() => {
+    isFavoriteRef.current = isFavorite;
+  }, [isFavorite]);
+
+  const handleClick = (event) => {
+    event.stopPropagation();
     if (isAnimating) return;
-    setIsAnimating(true);
 
-    lottieRef.current.setDirection(isPlayingForward ? "forward" : "reverse");
-    lottieRef.current.play();
-    setIsPlayingForward(!isPlayingForward);
+    const animation = lottieRef.current;
+    if (animation) {
+      setIsAnimating(true);
+      const nextIsFavorite = !isFavorite;
+      animation.playSegments(
+        nextIsFavorite ? [0, segmentEnd] : [segmentEnd, 0],
+      );
+    }
+
+    dispatch(favoriteToggled(pokemonId));
   };
 
+  const handleAnimationReady = () => {
+    const animation = lottieRef.current;
+    if (!animation) return;
+
+    animation.seek(isFavoriteRef.current ? favoriteFrame : 0);
+  };
+
+  const handleAnimationComplete = () => {
+    setIsAnimating(false);
+
+    const animation = lottieRef.current;
+    if (!animation) return;
+
+    animation.seek(isFavoriteRef.current ? favoriteFrame : 0);
+  };
+
+  const tooltipText = isFavorite ? "Remove from favorites" : "Add to favorites";
+  
   return (
     <button
+      type="button"
       onClick={handleClick}
       className={styles.favoriteButton}
-      data-tooltip={isPlayingForward ? "Add to favorites" : "Remove from favorites"}
+      aria-label={tooltipText}
+      aria-pressed={isFavorite}
+      data-tooltip={tooltipText}
     >
       <Lottie
         lottieRef={lottieRef}
@@ -30,7 +71,8 @@ export const FavoriteButton = () => {
         autoplay={false}
         loop={false}
         subscriptions={{
-          complete: () => setIsAnimating(false),
+          ready: handleAnimationReady,
+          complete: handleAnimationComplete,
         }}
         className={styles.star}
       />
