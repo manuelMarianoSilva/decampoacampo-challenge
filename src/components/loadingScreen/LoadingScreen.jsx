@@ -1,6 +1,6 @@
 import { Lottie } from "lottie-react"
 import spinningPokeball from "../../assets/animations/pokeball_spin.json"
-import styles from "./loadingScreen.module.css"
+import styles from "./LoadingScreen.module.css"
 
 export const LoadingScreen = () => {
     return (

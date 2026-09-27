@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from "react"
 import { useSearchParams } from "react-router"
 import { TOTAL_GENERATIONS } from "../../utils/constants"
-import { typenames } from "../typeBadges/typeIndex"
+import { typenames } from "../typeBadges/typeIndex.jsx"
 import styles from "./filters.module.css"
 
 const readFilters = (searchParams) => ({

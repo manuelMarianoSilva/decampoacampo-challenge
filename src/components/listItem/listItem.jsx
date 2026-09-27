@@ -1,10 +1,7 @@
-import { useState } from "react";
-import { Lottie } from "lottie-react";
 import styles from "./ListItem.module.css";
-import { FavoriteButton } from "../favoriteButton/FavoriteButton";
-import { SpriteContainer } from "./SpriteContainer";
-import { typeIndex } from "../typeBadges/typeIndex";
-import { TypeBadges } from "./TypeBadges";
+import { FavoriteButton } from "../favoriteButton/FavoriteButton.jsx";
+import { SpriteContainer } from "./SpriteContainer.jsx";
+import { TypeBadges } from "./TypeBadges.jsx";
 import { useNavigate, useSearchParams } from "react-router";
 
 

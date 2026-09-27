@@ -1,11 +1,11 @@
 import { useGetPokemonById } from "../../hooks/useGetPokemonById";
 import { useNavigate, useSearchParams } from "react-router"
-import { typeIndex } from "../typeBadges/typeIndex";
+import { typeIndex } from "../typeBadges/typeIndex.jsx";
 import styles from "./DetailsView.module.css";
-import { ImageWithLoader } from "./ImageWithLoader";
+import { ImageWithLoader } from "./ImageWithLoader.jsx";
 import pokeballSpin from "../../assets/animations/pokeball_spin.json"
 import pokeballLines from "../../assets/animations/pokeball_lines.json"
-import { LoadingScreen } from "../loadingScreen/LoadingScreen";
+import { LoadingScreen } from "../loadingScreen/LoadingScreen.jsx";
 
 
 const MAX_STAT_VALUE = 255 // approximate ceiling for base stats, used to scale bar width

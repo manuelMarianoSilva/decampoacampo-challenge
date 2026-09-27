@@ -1,21 +1,21 @@
-import { TypeNormalBadge } from "./TypeNormal";
-import { TypeFightingBadge } from "./TypeFighting";
-import { TypeFlyingBadge } from "./TypeFlying";
-import { TypePoisonBadge } from "./TypePoison";
-import { TypeGroundBadge } from "./TypeGround";
-import { TypeRockBadge } from "./TypeRock";
-import { TypeBugBadge } from "./TypeBug";
-import { TypeGhostBadge } from "./TypeGhost";
-import { TypeSteelBadge } from "./TypeSteel";
-import { TypeFireBadge } from "./TypeFire";
-import { TypeWaterBadge } from "./TypeWater";
-import { TypeGrassBadge } from "./TypeGrass";
-import { TypeElectricBadge } from "./TypeElectric";
-import { TypePsychicBadge } from "./TypePsychic";
-import { TypeIceBadge } from "./TypeIce";
-import { TypeDragonBadge } from "./TypeDragon";
-import { TypeDarkBadge } from "./TypeDark";
-import { TypeFairyBadge } from "./TypeFairy";
+import { TypeNormalBadge } from "./TypeNormal.jsx";
+import { TypeFightingBadge } from "./TypeFighting.jsx";
+import { TypeFlyingBadge } from "./TypeFlying.jsx";
+import { TypePoisonBadge } from "./TypePoison.jsx";
+import { TypeGroundBadge } from "./TypeGround.jsx";
+import { TypeRockBadge } from "./TypeRock.jsx";
+import { TypeBugBadge } from "./TypeBug.jsx";
+import { TypeGhostBadge } from "./TypeGhost.jsx";
+import { TypeSteelBadge } from "./TypeSteel.jsx";
+import { TypeFireBadge } from "./TypeFire.jsx";
+import { TypeWaterBadge } from "./TypeWater.jsx";
+import { TypeGrassBadge } from "./TypeGrass.jsx";
+import { TypeElectricBadge } from "./TypeElectric.jsx";
+import { TypePsychicBadge } from "./TypePsychic.jsx";
+import { TypeIceBadge } from "./TypeIce.jsx";
+import { TypeDragonBadge } from "./TypeDragon.jsx";
+import { TypeDarkBadge } from "./TypeDark.jsx";
+import { TypeFairyBadge } from "./TypeFairy.jsx";
 
 export const typeIndex = {
     1: {

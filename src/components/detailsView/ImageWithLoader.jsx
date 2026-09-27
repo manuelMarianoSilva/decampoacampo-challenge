@@ -3,7 +3,8 @@ import styles from "./DetailsView.module.css";
 import { Lottie } from "lottie-react";
 
 export const ImageWithLoader = ({ src, alt, animationData, className, imgClassName, variant = "main" }) => {
-    const wrapperClass = variant === "main" ? styles.wrapperMain : styles.wrapperSecondary;
+    const baseWrapperClass = variant === "main" ? styles.wrapperMain : styles.wrapperSecondary;
+    const wrapperClass = className ? `${baseWrapperClass} ${className}` : baseWrapperClass;
     const [isLoaded, setIsLoaded] = useState(false);    
 
     return (

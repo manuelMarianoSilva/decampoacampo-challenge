@@ -1,6 +1,5 @@
 import { Lottie } from "lottie-react";
-import { typeIndex } from "../typeBadges/typeIndex";
-import { useGetTypeIndexQuery } from "../../services/pokemonApi";
+import { typeIndex } from "../typeBadges/typeIndex.jsx";
 import loader from "../../assets/animations/blue_line_loader.json"
 import styles from "./ListItem.module.css"
 import { useElementalTypes } from "../../hooks/useElementalTypes";
@@ -18,7 +17,7 @@ export const TypeBadges = ({id}) => {
     return (
         <div className={styles.badgeContainer}>
             {pokemonTypes?.map((idx) => (
-                typeIndex?.[idx].default
+                <span key={`type-idx-${idx}`}>{typeIndex?.[idx].default}</span>
             ))}
         </div>
     )
