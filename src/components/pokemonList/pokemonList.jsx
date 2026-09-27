@@ -10,7 +10,6 @@ import { PAGE_SIZE, ROW_HEIGHT } from "../../utils/constants"
 import { LoadingScreen } from "../loadingScreen/LoadingScreen.jsx"
 import { LoadingMoreItems } from "../loadingMoreItems/LoadingMoreItems.jsx"
 import { Filters } from "../filters/filters.jsx"
-import { OnlineIndicator } from "../onlineIndicator/OnlineIndicator.jsx"
 import { typeNameIndex } from "../typeBadges/typeIndex.jsx"
 import { dataSourceReset, scrollPositionSaved } from "../../store/pokemonListSlice"
 import sad_pikachu from "../../assets/images/sad_pikachu.png"
@@ -36,7 +35,6 @@ export const PokemonList = () => {
     error,
     hasMore,
     fetchNextPage,
-    dataStatus,
     refetchData,
   } = useGetPokemonsPaginated()
   const [searchParams] = useSearchParams()
@@ -177,7 +175,6 @@ export const PokemonList = () => {
       <section className={styles.filterSection} aria-label="Pokemon list filters">
         <div className={styles.filterBar}>
           <Filters />
-          <OnlineIndicator dataStatus={dataStatus} />
         </div>
       </section>
 

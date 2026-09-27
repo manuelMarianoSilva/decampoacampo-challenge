@@ -2,8 +2,8 @@
   --pokemon-row-content-width: calc(554px + 4.5rem);
   display: flex;
   flex-direction: column;
-  height: 100vh;
-  height: 100dvh;
+  height: calc(100vh - var(--app-status-header-height));
+  height: calc(100dvh - var(--app-status-header-height));
 }
 
 .filterSection {
@@ -24,31 +24,17 @@
 }
 
 .filterBar {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 1rem;
-  max-width: calc(var(--pokemon-row-content-width) + 13rem);
+  max-width: var(--pokemon-row-content-width);
   margin-inline: auto;
 }
 
 .filterBar > :first-child {
-  flex: 0 1 var(--pokemon-row-content-width);
-  min-width: 0;
+  width: 100%;
 }
 
 @media (max-width: 700px) {
-  .filterBar {
-    flex-wrap: wrap;
-    gap: 0.5rem 0.75rem;
-  }
-
   .filterBar > :first-child {
-    flex-basis: 100%;
-  }
-
-  .filterBar > :last-child {
-    margin-left: auto;
+    min-width: 0;
   }
 }
 

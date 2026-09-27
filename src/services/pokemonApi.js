@@ -8,7 +8,7 @@ export const pokemonApi = createApi({
     getPokemonsPaginated: builder.query({
       query: ({ limit = 200, offset = 0 } = {}) =>
         `pokemon/?limit=${limit}&offset=${offset}`,
-      keepUnusedDataFor: Infinity // This is the main component the user will always return to, hang on to this data
+      keepUnusedDataFor: 300, // 5 minutes
     }),
 
     getPokemonById: builder.query({

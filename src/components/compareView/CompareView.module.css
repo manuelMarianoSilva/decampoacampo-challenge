@@ -1,6 +1,6 @@
 .view {
-  min-height: 100vh;
-  min-height: 100dvh;
+  min-height: calc(100vh - var(--app-status-header-height));
+  min-height: calc(100dvh - var(--app-status-header-height));
   padding: 1.25rem;
   box-sizing: border-box;
   color: var(--text);

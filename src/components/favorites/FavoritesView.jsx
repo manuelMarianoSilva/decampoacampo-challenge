@@ -15,6 +15,7 @@ import { favoriteMoved, MAX_FAVORITES } from "../../store/favoritesSlice";
 import { FavoriteCard } from "./FavoriteCard.jsx";
 import { useNavigate } from "react-router";
 import backArrow from "../../assets/images/back_arrow.svg";
+import sadAsh from "../../assets/images/sad_ash.png";
 import styles from "./FavoritesView.module.css";
 
 const FavoriteSlot = ({ slotIndex, pokemonId, children }) => {
@@ -78,7 +79,7 @@ export const FavoritesView = () => {
 
     resetDragState();
   };
-
+  
   return (
     <main className={styles.view}>
               <div className={styles.backButtonContainer}>
@@ -86,7 +87,7 @@ export const FavoritesView = () => {
                             <img src={backArrow} alt="Back" width={24} height={24} />
                         </button>
                     </div>
-      <h1 className={styles.title}>Favorites</h1>
+      <h1 className={styles.title}>My Team</h1>
       <DndContext
         sensors={sensors}
         collisionDetection={slotCollisionDetection}
@@ -96,7 +97,7 @@ export const FavoritesView = () => {
         onDragEnd={handleDragEnd}
         onDragCancel={resetDragState}
       >
-        <section className={styles.grid} aria-label="Favorite Pokémon">
+        {slots.some(slot => slot !== null) ?(<section className={styles.grid} aria-label="Favorite Pokémon">
           {slots.map((id, index) => (
             <FavoriteSlot key={`favorite-slot-${index}`} slotIndex={index} pokemonId={id}>
               {id ? (
@@ -113,7 +114,13 @@ export const FavoritesView = () => {
               )}
             </FavoriteSlot>
           ))}
-        </section>
+        </section>) : (
+            <div>
+                <img src={sadAsh} alt="Sad Ash" className={styles.sadAsh} />
+                <p>It's a desert around here!!!</p>
+                <p>Go back to the Pokedex and pick some favorites!</p>
+            </div>
+            )}
       </DndContext>
     </main>
   );

@@ -1,8 +1,19 @@
 import { useIsOnline } from "../../hooks/useIsOnline"
+import { useSelector } from "react-redux"
 import styles from "./OnlineIndicator.module.css"
 
-export const OnlineIndicator = ({ dataStatus }) => {
+export const OnlineIndicator = () => {
   const isOnline = useIsOnline()
+  const { hasCachedData, hasFreshData } = useSelector(
+    (state) => state.pokemonList.dataSource,
+  )
+  const dataStatus = hasCachedData && hasFreshData
+    ? { label: "Mixed data", variant: "mixed" }
+    : hasFreshData
+      ? { label: "Fresh online data", variant: "fresh" }
+      : hasCachedData
+        ? { label: "Cached data", variant: "cached" }
+        : { label: "List data not loaded", variant: "loading" }
 
   return (
     <div

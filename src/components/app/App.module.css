@@ -1,3 +1,18 @@
 .fitContent {
   width: fit-content;
 }
+
+:global(:root) {
+  --app-status-header-height: 2.75rem;
+}
+
+.statusHeader {
+  display: flex;
+  flex: 0 0 var(--app-status-header-height);
+  align-items: center;
+  justify-content: flex-end;
+  padding: 0 1rem;
+  border-bottom: 1px solid var(--border);
+  background: var(--bg);
+  box-sizing: border-box;
+}
