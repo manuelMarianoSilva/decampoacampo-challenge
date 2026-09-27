@@ -22,7 +22,7 @@ export const ListItem = ({ pokemon }) => {
                 <TypeBadges id={id}/>
             </div>
             <SpriteContainer id={id} name={pokemon.name} />
-            <FavoriteButton pokemonId={id} />
+            <FavoriteButton pokemonId={id} pokemonName={pokemon.name} />
         </div>
     );
 };

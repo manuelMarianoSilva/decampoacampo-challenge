@@ -1,6 +1,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import { Lottie } from "lottie-react";
+import { toast } from "sonner";
 import { useDispatch, useSelector } from "react-redux";
 import star from "../../assets/animations/starburst.json";
 import { favoriteToggled } from "../../store/favoritesSlice";
@@ -9,13 +10,15 @@ import styles from "./FavoriteButton.module.css";
 const favoriteFrame = 21;
 const segmentEnd = favoriteFrame + 1;
 
-export const FavoriteButton = ({ pokemonId }) => {
+export const FavoriteButton = ({ pokemonId, pokemonName }) => {
   const lottieRef = useRef(null);
   const [isAnimating, setIsAnimating] = useState(false);
   const dispatch = useDispatch();
   const isFavorite = useSelector((state) =>
     state.favorites.ids.includes(pokemonId),
   );
+  const capitalizedPokemonName =
+    pokemonName.charAt(0).toUpperCase() + pokemonName.slice(1);
   const isFavoriteRef = useRef(isFavorite);
 
   useEffect(() => {
@@ -36,6 +39,12 @@ export const FavoriteButton = ({ pokemonId }) => {
     }
 
     dispatch(favoriteToggled(pokemonId));
+    
+    if (!isFavorite) {
+      toast(`${capitalizedPokemonName} is a favorite now!!!`);
+    } else {
+      toast(`You've just removed ${capitalizedPokemonName} from your favorites. We're sad to see it go.`);
+    }
   };
 
   const handleAnimationReady = () => {

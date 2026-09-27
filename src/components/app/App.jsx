@@ -1,13 +1,17 @@
 import { DetailsView } from '../detailsView/DetailsView.jsx'
 import { PokemonList } from '../pokemonList/pokemonList.jsx'
 import { Route, Routes } from 'react-router'
+import { Toaster } from 'sonner'
 
 const App = () => {
  return (
-  <Routes>
-    <Route path="/" element={<PokemonList />}/>
-    <Route path="details" element={<DetailsView />} />
-  </Routes>
+  <>
+   <Routes>
+     <Route path="/" element={<PokemonList />}/>
+     <Route path="details" element={<DetailsView />} />
+   </Routes>
+   <Toaster />
+  </>
  )
 }
 
