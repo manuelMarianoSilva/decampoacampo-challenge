@@ -1,7 +1,7 @@
 import { useRef, useEffect, useLayoutEffect } from "react"
 import { useVirtualizer } from "@tanstack/react-virtual"
 import { useDispatch, useSelector } from "react-redux"
-import { useSearchParams } from "react-router"
+import { useNavigate, useSearchParams } from "react-router"
 import { useGetPokemonsPaginated } from "../../hooks/useGetPokemonsPaginated"
 import { useElementalTypes } from "../../hooks/useElementalTypes"
 import { useGetGenerations } from "../../hooks/useGetGenerations"
@@ -19,6 +19,7 @@ import scared_ash from "../../assets/images/scared_ash.png"
 import styles from "./PokemonList.module.css"
 
 export const PokemonList = () => {
+  const navigate = useNavigate()
   const dispatch = useDispatch()
   const listHasItems = useSelector((state) => state.pokemonList.items.length > 0)
   const listHadItemsAtMount = useRef(listHasItems)
@@ -246,7 +247,7 @@ export const PokemonList = () => {
           <button
             type="button"
             className={styles.actionButton}
-            disabled
+            onClick={() => navigate("/compare")}
           >
             Compare Pokémon
           </button>
