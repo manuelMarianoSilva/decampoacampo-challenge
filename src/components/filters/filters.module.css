@@ -1,0 +1,48 @@
+.filters {
+    display: grid;
+    grid-template-columns: minmax(0, 1.5fr) repeat(2, minmax(0, 1fr));
+    align-items: end;
+    gap: 0.75rem;
+    width: 100%;
+    max-width: var(--pokemon-row-content-width);
+    margin-inline: auto;
+}
+
+.control {
+    display: grid;
+    min-width: 0;
+    gap: 0.25rem;
+    color: var(--text-h);
+    font-size: 0.8rem;
+    text-align: left;
+}
+
+.control input,
+.control select {
+    width: 100%;
+    min-width: 0;
+    height: 2.5rem;
+    padding: 0 0.65rem;
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    background: var(--bg);
+    color: var(--text-h);
+    font: inherit;
+    box-sizing: border-box;
+}
+
+@media (max-width: 520px) {
+    .filters {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 0.4rem;
+    }
+
+    .control {
+        font-size: 0.7rem;
+    }
+
+    .control input,
+    .control select {
+        padding-inline: 0.35rem;
+    }
+}

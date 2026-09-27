@@ -6,6 +6,7 @@ import { ListItem } from "../listItem/ListItem"
 import { PAGE_SIZE, ROW_HEIGHT } from "../../utils/constants"
 import { LoadingScreen } from "../loadingScreen/LoadingScreen"
 import { LoadingMoreItems } from "../loadingMoreItems/LoadingMoreItems"
+import { Filters } from "../filters/filters"
 import { scrollPositionSaved } from "../../store/pokemonListSlice"
 import styles from "./PokemonList.module.css"
 
@@ -91,41 +92,45 @@ export const PokemonList = () => {
     }
   }, [virtualItems, items.length, hasMore, isFetching, fetchNextPage])
 
-  if (isLoading && items.length === 0) {
-    return <LoadingScreen />
-  }
-
-  if (error && items.length === 0) {
-    return <>Something really bad happened</>
-  }
-
   return (
-    <div ref={parentRef} className={styles.scrollContainer} onScroll={handleScroll}>
-      <div
-        className={styles.spacer}
-        style={{ "--total-size": `${rowVirtualizer.getTotalSize()}px` }}
-      >
-        {virtualItems.map((virtualRow) => {
-          const isLoaderRow = virtualRow.index > items.length - 1
-          const pokemon = items[virtualRow.index]
+    <div className={styles.view}>
+      <section className={styles.filterSection} aria-label="Pokemon list filters">
+        <Filters />
+      </section>
 
-          return (
-            <div
-              key={virtualRow.key}
-              className={styles.row}
-              style={{
-                "--row-size": `${virtualRow.size}px`,
-                "--row-start": `${virtualRow.start}px`,
-              }}
-            >
-              {isLoaderRow ? (
-                hasMore && (<LoadingMoreItems />)
-              ) : (
-                <ListItem pokemon={pokemon} />
-              )}
-            </div>
-          )
-        })}
+      <div ref={parentRef} className={styles.scrollContainer} onScroll={handleScroll}>
+        {isLoading && items.length === 0 ? (
+          <LoadingScreen />
+        ) : error && items.length === 0 ? (
+          <>Something really bad happened</>
+        ) : (
+          <div
+            className={styles.spacer}
+            style={{ "--total-size": `${rowVirtualizer.getTotalSize()}px` }}
+          >
+            {virtualItems.map((virtualRow) => {
+              const isLoaderRow = virtualRow.index > items.length - 1
+              const pokemon = items[virtualRow.index]
+
+              return (
+                <div
+                  key={virtualRow.key}
+                  className={styles.row}
+                  style={{
+                    "--row-size": `${virtualRow.size}px`,
+                    "--row-start": `${virtualRow.start}px`,
+                  }}
+                >
+                  {isLoaderRow ? (
+                    hasMore && (<LoadingMoreItems />)
+                  ) : (
+                    <ListItem pokemon={pokemon} />
+                  )}
+                </div>
+              )
+            })}
+          </div>
+        )}
       </div>
     </div>
   )

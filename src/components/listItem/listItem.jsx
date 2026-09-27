@@ -5,15 +5,21 @@ import { FavoriteButton } from "../favoriteButton/FavoriteButton";
 import { SpriteContainer } from "./SpriteContainer";
 import { typeIndex } from "../typeBadges/typeIndex";
 import { TypeBadges } from "./TypeBadges";
-import { useNavigate } from "react-router";
+import { useNavigate, useSearchParams } from "react-router";
 
 
 export const ListItem = ({ pokemon }) => {
     const navigate = useNavigate()
+    const [searchParams] = useSearchParams()
     const id = pokemon?.url.match(/\/pokemon\/(\d+)\//)?.[1];
+    const openDetails = () => {
+        const params = new URLSearchParams(searchParams)
+        params.set("id", id)
+        navigate(`/details?${params.toString()}`)
+    }
 
     return (
-        <div className={styles.listRow} key={`pokemon-id-${id}`} onClick={() => navigate(`/details?id=${id}`)}>
+        <div className={styles.listRow} key={`pokemon-id-${id}`} onClick={openDetails}>
             <div>
                 <input type="checkbox" />
             </div>
