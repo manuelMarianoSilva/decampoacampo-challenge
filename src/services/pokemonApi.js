@@ -1,12 +1,12 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
-import { BASE_URL, TOTAL_TYPES } from '../utils/constants'
+import { BASE_URL, TOTAL_TYPES, TOTAL_GENERATIONS } from '../utils/constants'
 
 export const pokemonApi = createApi({
   reducerPath: 'pokemonApi',
   baseQuery: fetchBaseQuery({ baseUrl: BASE_URL }),
   endpoints: (builder) => ({
     getPokemonsPaginated: builder.query({
-      query: ({ limit = 20, offset = 0 } = {}) =>
+      query: ({ limit = 200, offset = 0 } = {}) =>
         `pokemon/?limit=${limit}&offset=${offset}`,
       keepUnusedDataFor: Infinity // This is the main component the user will always return to, hang on to this data
     }),
@@ -31,7 +31,7 @@ export const pokemonApi = createApi({
 
         const failed = results.find((r) => r.error)
         if (failed) return { error: failed.error }
-        
+
         const index = {}
         results.forEach(({ data }) => {
           const typeId = data.id
@@ -47,6 +47,34 @@ export const pokemonApi = createApi({
       // Types are static — never garbage-collect this from cache, never refetch.
       keepUnusedDataFor: Infinity,
     }),
+
+    getGenerationIndex: builder.query({
+    queryFn: async (_arg, _queryApi, _extraOptions, fetchWithBQ) => {
+        const genIds = Array.from({ length: TOTAL_GENERATIONS }, (_, i) => i + 1)
+
+        const results = await Promise.all(
+            genIds.map((id) =>
+                fetchWithBQ(`${BASE_URL}generation/${id}/`)
+            )
+        )
+
+        const failed = results.find((r) => r.error)
+        if (failed) return { error: failed.error }
+
+        const index = {}
+        results.forEach(({ data }) => {
+            data.pokemon_species.forEach((species) => {
+                const id = Number(species.url.match(/\/(\d+)\/?$/)[1])
+                index[id] = data.id
+            })
+        })
+
+        console.log('Generation index built:', index)
+
+        return { data: index }
+    },
+    keepUnusedDataFor: Infinity, // Same as with types.
+}),
   }),
 })
 
@@ -54,4 +82,5 @@ export const {
   useGetPokemonsPaginatedQuery,
   useGetPokemonByIdQuery,
   useGetTypeIndexQuery,
+  useGetGenerationIndexQuery,
 } = pokemonApi

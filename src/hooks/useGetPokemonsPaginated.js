@@ -10,7 +10,7 @@ export const useGetPokemonsPaginated = () => {
   const offset = useSelector((state) => state.pokemonList.offset)
   const hasMore = useSelector((state) => state.pokemonList.hasMore)
 
-  const { data, isLoading, isFetching, error } = useGetPokemonsPaginatedQuery({
+  const { currentData, isLoading, isFetching, error } = useGetPokemonsPaginatedQuery({
     limit: PAGE_SIZE,
     offset,
   })
@@ -20,11 +20,11 @@ export const useGetPokemonsPaginated = () => {
   const mergedOffsetRef = useRef(-1)
 
   useEffect(() => {
-    if (!data) return
+    if (!currentData) return
     if (mergedOffsetRef.current === offset) return
     mergedOffsetRef.current = offset
-    dispatch(pageAppended({ results: data.results, hasNext: Boolean(data.next) }))
-  }, [data, offset, dispatch])
+    dispatch(pageAppended({ results: currentData.results, hasNext: Boolean(currentData.next) }))
+  }, [currentData, offset, dispatch])
 
   const fetchNextPage = () => {
     if (hasMore && !isFetching) {
@@ -32,5 +32,5 @@ export const useGetPokemonsPaginated = () => {
     }
   }
 
-  return { items, isLoading, isFetching, error, hasMore, fetchNextPage }
+  return { items, offset, isLoading, isFetching, error, hasMore, fetchNextPage }
 }

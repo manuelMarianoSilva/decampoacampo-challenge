@@ -2,6 +2,7 @@ import { configureStore, combineReducers } from '@reduxjs/toolkit'
 import {
   persistStore,
   persistReducer,
+  createTransform,
   FLUSH,
   REHYDRATE,
   PAUSE,
@@ -15,15 +16,28 @@ import pokemonListReducer from './pokemonListSlice'
 
 const storage = storageImport.default ?? storageImport
 
+const typeIndexCacheTransform = createTransform(
+  (queries = {}) =>
+    Object.fromEntries(
+      Object.entries(queries).filter(
+        ([, query]) => query?.endpointName === 'getTypeIndex',
+      ),
+    ),
+  (queries) => queries,
+  { whitelist: ['queries'] },
+)
+
 const apiPersistConfig = {
   key: 'pokemonApi',
   storage,
-  blacklist: ['subscriptions'],
+  whitelist: ['queries'],
+  transforms: [typeIndexCacheTransform],
 }
 
 const listPersistConfig = {
   key: 'pokemonList',
   storage,
+  whitelist: ['scrollTop'],
 }
 
 const rootReducer = combineReducers({

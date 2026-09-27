@@ -3,25 +3,21 @@ import { useVirtualizer } from "@tanstack/react-virtual"
 import { useDispatch, useSelector } from "react-redux"
 import { useGetPokemonsPaginated } from "../../hooks/useGetPokemonsPaginated"
 import { ListItem } from "../listItem/ListItem"
-import { ROW_HEIGHT } from "../../utils/constants"
+import { PAGE_SIZE, ROW_HEIGHT } from "../../utils/constants"
 import { LoadingScreen } from "../loadingScreen/LoadingScreen"
 import { LoadingMoreItems } from "../loadingMoreItems/LoadingMoreItems"
 import { scrollPositionSaved } from "../../store/pokemonListSlice"
 import styles from "./PokemonList.module.css"
 
-const MAX_RESTORE_ATTEMPTS = 30 // ~0.5s at 60fps before giving up
-
 export const PokemonList = () => {
-  const { items, isLoading, isFetching, error, hasMore, fetchNextPage } =
+  const { items, offset, isLoading, isFetching, error, hasMore, fetchNextPage } =
     useGetPokemonsPaginated()
 
   const dispatch = useDispatch()
   const savedScrollTop = useSelector((state) => state.pokemonList.scrollTop)
 
   const parentRef = useRef(null)
-  const hasRestoredScroll = useRef(false)
   const isRestoringRef = useRef(savedScrollTop > 0)
-  const restoreAttemptRef = useRef(0)
 
   const rowVirtualizer = useVirtualizer({
     count: hasMore ? items.length + 1 : items.length,
@@ -37,54 +33,39 @@ export const PokemonList = () => {
     if (!el) return
 
     if (savedScrollTop <= 0) {
-      hasRestoredScroll.current = true
       isRestoringRef.current = false
       return
     }
 
-    const attemptId = ++restoreAttemptRef.current
-    hasRestoredScroll.current = false
     isRestoringRef.current = true
+    const maxScroll = el.scrollHeight - el.clientHeight
 
-    let frameId
-    let attempts = 0
+    if (maxScroll >= savedScrollTop || !hasMore && !isFetching) {
+      el.scrollTop = savedScrollTop
+      isRestoringRef.current = false
 
-    const tryRestore = () => {
-      const currentEl = parentRef.current
-      if (!currentEl) return
-
-      const maxScroll = currentEl.scrollHeight - currentEl.clientHeight
-      attempts += 1
-      const givingUp = attempts >= MAX_RESTORE_ATTEMPTS
-
-      if (maxScroll >= savedScrollTop || givingUp) {
-        currentEl.scrollTop = savedScrollTop
-        const settled = currentEl.scrollTop === savedScrollTop
-
-        if (attemptId === restoreAttemptRef.current) {
-          hasRestoredScroll.current = true
-          isRestoringRef.current = false
-        }
-
-        if (!settled) {
-          dispatch(scrollPositionSaved(currentEl.scrollTop))
-        }
-        return
-      }
-
-      frameId = requestAnimationFrame(tryRestore)
-    }
-
-    tryRestore()
-
-    return () => {
-      cancelAnimationFrame(frameId)
-      if (attemptId === restoreAttemptRef.current) {
-        hasRestoredScroll.current = false
-        isRestoringRef.current = false
+      if (el.scrollTop !== savedScrollTop) {
+        dispatch(scrollPositionSaved(el.scrollTop))
       }
     }
-  }, [dispatch, savedScrollTop])
+  }, [dispatch, savedScrollTop, items.length, hasMore, isFetching])
+
+  useEffect(() => {
+    const el = parentRef.current
+    if (
+      savedScrollTop <= 0 ||
+      !el ||
+      !hasMore ||
+      isFetching ||
+      items.length < offset + PAGE_SIZE
+    ) {
+      return
+    }
+
+    const maxScroll = el.scrollHeight - el.clientHeight
+    if (maxScroll < savedScrollTop) fetchNextPage()
+  }, [savedScrollTop, items.length, offset, hasMore, isFetching, fetchNextPage])
+
   const lastSavedAt = useRef(0)
   const handleScroll = () => {
     if (isRestoringRef.current) return // ignore scroll events fired by our own restore attempts
@@ -102,6 +83,7 @@ export const PokemonList = () => {
   }, [dispatch])
 
   useEffect(() => {
+    if (isRestoringRef.current) return
     const lastItem = virtualItems[virtualItems.length - 1]
     if (!lastItem) return
     if (lastItem.index >= items.length - 1 && hasMore && !isFetching) {

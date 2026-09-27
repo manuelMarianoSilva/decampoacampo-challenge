@@ -6,11 +6,12 @@ import { Provider } from 'react-redux'
 import { store, persistor } from './store/store'
 import { BrowserRouter } from 'react-router'
 import { PersistGate } from 'redux-persist/integration/react'
+import { LoadingScreen } from './components/loadingScreen/LoadingScreen'
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
     <Provider store={store}>
-      <PersistGate loading={null} persistor={persistor}>
+      <PersistGate loading={<LoadingScreen />} persistor={persistor}>
         <BrowserRouter>
           <App />
         </BrowserRouter>
