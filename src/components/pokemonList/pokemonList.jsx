@@ -12,6 +12,9 @@ import { LoadingMoreItems } from "../loadingMoreItems/LoadingMoreItems"
 import { Filters } from "../filters/filters"
 import { typeNameIndex } from "../typeBadges/typeIndex"
 import { scrollPositionSaved } from "../../store/pokemonListSlice"
+import sad_pikachu from "../../assets/images/sad_pikachu.png"
+import confused_psyduck from "../../assets/images/confused_psyduck.png"
+import scared_ash from "../../assets/images/scared_ash.png"
 import styles from "./PokemonList.module.css"
 
 export const PokemonList = () => {
@@ -158,13 +161,22 @@ export const PokemonList = () => {
         {isLoading && items.length === 0 ? (
           <LoadingScreen />
         ) : error && items.length === 0 ? (
-          <>Something really bad happened</>
+          <div style={{display: "flex", flexDirection: "column", alignItems: "center", gap: "1rem"}}>
+            <img src={scared_ash} alt="Scared Ash" style={{height: "260px"}}/>
+            <>Something really bad happened, Ash is scared!</>
+          </div>
         ) : filterIndexLoading ? (
           <LoadingScreen />
         ) : filterIndexError ? (
-          <>Filter data could not be loaded. Please try again.</>
+          <div style={{display: "flex", flexDirection: "column", alignItems: "center", gap: "1rem"}}>
+            <img src={confused_psyduck} alt="Confused Psyduck" style={{height: "260px"}}/>
+            <>Psyduck is confused, filter data could not be loaded. Please try again.</>
+          </div>
         ) : filteredItems.length === 0 && !hasMore ? (
-          <>No Pokémon match these filters.</>
+          <div style={{display: "flex", flexDirection: "column", alignItems: "center", gap: "1rem"}}>
+            <img src={sad_pikachu} alt="Sad Pikachu" style={{height: "260px"}} />
+            No Pokémon match these filters, and that makes Pikachu sad.
+          </div>
         ) : (
           <div
             className={styles.spacer}
