@@ -63,6 +63,7 @@ export const PokemonList = () => {
 
   const dispatch = useDispatch()
   const savedScrollTop = useSelector((state) => state.pokemonList.scrollTop)
+  const favoriteCount = useSelector((state) => state.favorites.ids.length)
 
   const parentRef = useRef(null)
   const isRestoringRef = useRef(savedScrollTop > 0)
@@ -208,6 +209,26 @@ export const PokemonList = () => {
           </div>
         )}
       </div>
+
+      <footer className={styles.actionFooter}>
+        <div className={styles.actionButtons}>
+          <button
+            type="button"
+            className={styles.actionButton}
+            disabled={favoriteCount === 0}
+            onClick={() => window.location.href = "/favorites"}
+          >
+            See Favorites
+          </button>
+          <button
+            type="button"
+            className={styles.actionButton}
+            disabled
+          >
+            Compare Pokémon
+          </button>
+        </div>
+      </footer>
     </div>
   )
 }

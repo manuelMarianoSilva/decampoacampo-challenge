@@ -29,6 +29,43 @@
     min-height: 0;
 }
 
+.actionFooter {
+  flex: 0 0 auto;
+  padding: 0.75rem 1rem;
+  border-top: 1px solid var(--border);
+  background: var(--bg);
+}
+
+.actionButtons {
+  display: flex;
+  justify-content: center;
+  gap: 0.5rem;
+  width: 100%;
+  max-width: var(--pokemon-row-content-width);
+  margin-inline: auto;
+}
+
+.actionButton {
+  min-height: 2.5rem;
+  padding: 0.4rem 0.85rem;
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  background: var(--bg);
+  color: var(--text-h);
+  font: inherit;
+  cursor: pointer;
+}
+
+.actionButton:not(:disabled):hover {
+  border-color: var(--accent);
+  background: var(--accent-bg);
+}
+
+.actionButton:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
 .spacer {
   height: var(--total-size);
   position: relative;
