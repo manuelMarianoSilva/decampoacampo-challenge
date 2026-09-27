@@ -8,6 +8,7 @@ import pokeballLines from "../../assets/animations/pokeball_lines.json"
 import backArrow from "../../assets/images/back_arrow.svg"
 import emptyPokeball from "../../assets/images/empty_pokeball.png"
 import { LoadingScreen } from "../loadingScreen/LoadingScreen.jsx";
+import { FavoriteButton } from "../favoriteButton/FavoriteButton";
 
 
 const MAX_STAT_VALUE = 255 // approximate ceiling for base stats, used to scale bar width
@@ -87,7 +88,10 @@ export const DetailsView = () => {
                     <img src={backArrow} alt="Back" width={24} height={24} />
                 </button>
             </div>
-            <h1 className={styles.title}>{pokemon.name}</h1>
+            <div className={styles.titleContainer}>
+                <h1 className={styles.title}>{pokemon.name}</h1>
+                <FavoriteButton pokemonId={pokemonId} pokemonName={pokemon.name} />
+            </div>
 
             {/* Main Sprite */}
             {mainSprite && (

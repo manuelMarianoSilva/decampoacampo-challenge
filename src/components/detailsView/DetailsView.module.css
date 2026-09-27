@@ -20,6 +20,13 @@
     margin-bottom: 1rem;
 }
 
+.titleContainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+}
+
 .title {
     text-transform: capitalize;
     font-family: 'Pokemon Solid', sans-serif;
