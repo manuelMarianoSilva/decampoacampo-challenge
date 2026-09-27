@@ -10,6 +10,7 @@
 
 .control {
     display: grid;
+    position: relative;
     min-width: 0;
     gap: 0.25rem;
     color: var(--text-h);
@@ -17,8 +18,7 @@
     text-align: left;
 }
 
-.control input,
-.control select {
+.control input {
     width: 100%;
     min-width: 0;
     height: 2.5rem;
@@ -31,10 +31,83 @@
     box-sizing: border-box;
 }
 
+.dropdownTrigger {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.5rem;
+    width: 100%;
+    min-width: 0;
+    height: 2.5rem;
+    padding: 0 0.65rem;
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    background: var(--bg);
+    color: var(--text-h);
+    font: inherit;
+    text-align: left;
+    cursor: pointer;
+    box-sizing: border-box;
+}
+
+.dropdownTrigger:focus-visible,
+.dropdownOption:focus-visible {
+    outline: 2px solid var(--accent-border);
+    outline-offset: 1px;
+}
+
+.dropdownChevron {
+    flex: 0 0 auto;
+    width: 0.45rem;
+    height: 0.45rem;
+    border-right: 1.5px solid currentColor;
+    border-bottom: 1.5px solid currentColor;
+    transform: translateY(-0.12rem) rotate(45deg);
+}
+
+.dropdownMenu {
+    position: absolute;
+    z-index: 2;
+    top: calc(100% + 0.25rem);
+    right: 0;
+    left: 0;
+    display: grid;
+    max-height: min(20rem, 50vh);
+    padding: 0.25rem;
+    overflow-y: auto;
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    background: var(--bg);
+    box-shadow: var(--shadow);
+    box-sizing: border-box;
+}
+
+.dropdownOption {
+    width: 100%;
+    min-height: 2.25rem;
+    padding: 0.4rem 0.5rem;
+    border: 0;
+    border-radius: 3px;
+    background: transparent;
+    color: var(--text-h);
+    font: inherit;
+    text-align: left;
+    cursor: pointer;
+}
+
+.dropdownOption:hover,
+.dropdownOption[aria-selected="true"] {
+    background: var(--accent-bg);
+}
+
 @media (max-width: 520px) {
     .filters {
-        grid-template-columns: repeat(3, minmax(0, 1fr));
+        grid-template-columns: repeat(2, minmax(0, 1fr));
         gap: 0.4rem;
+    }
+
+    .control:first-child {
+        grid-column: 1 / -1;
     }
 
     .control {
@@ -42,7 +115,12 @@
     }
 
     .control input,
-    .control select {
+    .dropdownTrigger {
         padding-inline: 0.35rem;
+    }
+
+    .dropdownTrigger,
+    .dropdownOption {
+        font-size: 14px;
     }
 }

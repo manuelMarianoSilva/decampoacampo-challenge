@@ -25,6 +25,12 @@
     justify-self: left;
 }
 
+.imageWrapper img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
 .imagePlaceholder {
   position: absolute;
   inset: 0;
@@ -44,4 +50,29 @@
 
 .badgeContainer {
   display: flex;
+}
+
+@media (max-width: 600px) {
+  .listRow {
+    grid-template-columns: minmax(0, 1fr) 64px 40px;
+    justify-content: stretch;
+    column-gap: 0.5rem;
+    padding-inline: 0.5rem;
+    box-sizing: border-box;
+  }
+
+  .nameAndBadgesContainer {
+    min-width: 0;
+  }
+
+  .fontPokemon {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .imageWrapper {
+    width: 64px;
+    height: 64px;
+  }
 }
