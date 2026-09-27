@@ -1,4 +1,4 @@
-import { useRef, useState } from "react"
+import { useEffect, useRef, useState } from "react"
 import { useSearchParams } from "react-router"
 import { TOTAL_GENERATIONS } from "../../utils/constants"
 import { typenames } from "../typeBadges/typeIndex"
@@ -15,23 +15,48 @@ export const Filters = ({ onFiltersChange }) => {
 	const [filters, setFilters] = useState(() => readFilters(searchParams))
 	const filtersRef = useRef(filters)
 	const searchParamsRef = useRef(searchParams)
+	const nameDebounceRef = useRef(null)
 
-	const handleChange = (event) => {
-		const { name, value } = event.target
-		const nextFilters = { ...filtersRef.current, [name]: value }
+	useEffect(() => {
+		const currentParams = new URLSearchParams(searchParams)
+		if (currentParams.toString() === searchParamsRef.current.toString()) return
+
+		searchParamsRef.current = currentParams
+		clearTimeout(nameDebounceRef.current)
+		const nextFilters = readFilters(currentParams)
+		filtersRef.current = nextFilters
+		setFilters(nextFilters)
+	}, [searchParams])
+
+	useEffect(() => () => clearTimeout(nameDebounceRef.current), [])
+
+	const updateSearchParam = (name, value) => {
 		const nextSearchParams = new URLSearchParams(searchParamsRef.current)
-
 		if (value) {
 			nextSearchParams.set(name, value)
 		} else {
 			nextSearchParams.delete(name)
 		}
 
-		filtersRef.current = nextFilters
 		searchParamsRef.current = nextSearchParams
-		setFilters(nextFilters)
 		setSearchParams(nextSearchParams, { replace: true })
+	}
+
+	const handleChange = (event) => {
+		const { name, value } = event.target
+		const nextFilters = { ...filtersRef.current, [name]: value }
+		filtersRef.current = nextFilters
+		setFilters(nextFilters)
 		onFiltersChange?.(nextFilters)
+
+		if (name === "name") {
+			clearTimeout(nameDebounceRef.current)
+			nameDebounceRef.current = setTimeout(() => {
+				updateSearchParam("name", filtersRef.current.name)
+			}, 300)
+		} else {
+			updateSearchParam(name, value)
+		}
 	}
 
 	return (

@@ -68,9 +68,7 @@ export const pokemonApi = createApi({
                 index[id] = data.id
             })
         })
-
-        console.log('Generation index built:', index)
-
+        
         return { data: index }
     },
     keepUnusedDataFor: Infinity, // Same as with types.
