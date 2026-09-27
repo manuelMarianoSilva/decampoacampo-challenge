@@ -23,6 +23,35 @@
   margin: 0;
 }
 
+.filterBar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  max-width: calc(var(--pokemon-row-content-width) + 13rem);
+  margin-inline: auto;
+}
+
+.filterBar > :first-child {
+  flex: 0 1 var(--pokemon-row-content-width);
+  min-width: 0;
+}
+
+@media (max-width: 700px) {
+  .filterBar {
+    flex-wrap: wrap;
+    gap: 0.5rem 0.75rem;
+  }
+
+  .filterBar > :first-child {
+    flex-basis: 100%;
+  }
+
+  .filterBar > :last-child {
+    margin-left: auto;
+  }
+}
+
 .scrollContainer {
     overflow: auto;
     flex: 1;

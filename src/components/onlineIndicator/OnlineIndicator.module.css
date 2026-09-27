@@ -1,0 +1,43 @@
+.connectionStatus {
+  display: flex;
+  flex: 0 0 auto;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.statusItem {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  color: var(--text);
+  font-size: 0.72rem;
+  line-height: 1.2;
+  white-space: nowrap;
+}
+
+.statusItem::before {
+  width: 0.45rem;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background: var(--status-color);
+  content: "";
+}
+
+.online,
+.fresh {
+  --status-color: #328252;
+}
+
+.offline,
+.unavailable {
+  --status-color: #c05252;
+}
+
+.cached,
+.mixed {
+  --status-color: #b08426;
+}
+
+.loading {
+  --status-color: #7a8190;
+}

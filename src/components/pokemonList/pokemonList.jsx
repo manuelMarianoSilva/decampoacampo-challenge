@@ -10,16 +10,34 @@ import { PAGE_SIZE, ROW_HEIGHT } from "../../utils/constants"
 import { LoadingScreen } from "../loadingScreen/LoadingScreen.jsx"
 import { LoadingMoreItems } from "../loadingMoreItems/LoadingMoreItems.jsx"
 import { Filters } from "../filters/filters.jsx"
+import { OnlineIndicator } from "../onlineIndicator/OnlineIndicator.jsx"
 import { typeNameIndex } from "../typeBadges/typeIndex.jsx"
-import { scrollPositionSaved } from "../../store/pokemonListSlice"
+import { dataSourceReset, scrollPositionSaved } from "../../store/pokemonListSlice"
 import sad_pikachu from "../../assets/images/sad_pikachu.png"
 import confused_psyduck from "../../assets/images/confused_psyduck.png"
 import scared_ash from "../../assets/images/scared_ash.png"
 import styles from "./PokemonList.module.css"
 
 export const PokemonList = () => {
-  const { items, offset, isLoading, isFetching, error, hasMore, fetchNextPage } =
-    useGetPokemonsPaginated()
+  const dispatch = useDispatch()
+  const listHasItems = useSelector((state) => state.pokemonList.items.length > 0)
+  const listHadItemsAtMount = useRef(listHasItems)
+
+  useLayoutEffect(() => {
+    dispatch(dataSourceReset(listHadItemsAtMount.current))
+  }, [dispatch])
+
+  const {
+    items,
+    offset,
+    isLoading,
+    isFetching,
+    error,
+    hasMore,
+    fetchNextPage,
+    dataStatus,
+    refetchData,
+  } = useGetPokemonsPaginated()
   const [searchParams] = useSearchParams()
   const filters = {
     name: searchParams.get("name") ?? "",
@@ -61,7 +79,6 @@ export const PokemonList = () => {
       })
     : []
 
-  const dispatch = useDispatch()
   const savedScrollTop = useSelector((state) => state.pokemonList.scrollTop)
   const favoriteCount = useSelector((state) =>
     state.favorites.ids.filter(Boolean).length,
@@ -157,7 +174,10 @@ export const PokemonList = () => {
   return (
     <div className={styles.view}>
       <section className={styles.filterSection} aria-label="Pokemon list filters">
-        <Filters />
+        <div className={styles.filterBar}>
+          <Filters />
+          <OnlineIndicator dataStatus={dataStatus} />
+        </div>
       </section>
 
       {/* The scrollable container for the virtualized list. Ideally this would be a separate component,
@@ -167,8 +187,9 @@ export const PokemonList = () => {
           <LoadingScreen />
         ) : error && items.length === 0 ? (
           <div style={{display: "flex", flexDirection: "column", alignItems: "center", gap: "1rem"}}>
-            <img src={scared_ash} alt="Scared Ash" style={{height: "260px"}}/>
+            <img src={scared_ash} alt="Scared Ash" style={{height: "260px", width: "260px"}}/>
             <>Something really bad happened, Ash is scared!</>
+            <button onClick={() => refetchData()}>Retry</button>
           </div>
         ) : filterIndexLoading ? (
           <LoadingScreen />
