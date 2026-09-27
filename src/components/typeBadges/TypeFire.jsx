@@ -3,5 +3,7 @@ import fireBadgeSmall from "../../assets/badges/small/10.png"
 import styles from "./Badges.module.css"
 
 export const TypeFireBadge = ({small}) => (
-    <img src={small ? fireBadgeSmall : fireBadge} alt="Fire" className={styles.badge}/>
+    <div key="Fire">
+        <img src={small ? fireBadgeSmall : fireBadge} alt="Fire" className={styles.badge}/>
+    </div>
 )

@@ -3,5 +3,7 @@ import poisonBadgeSmall from "../../assets/badges/small/4.png"
 import styles from "./Badges.module.css"
 
 export const TypePoisonBadge = ({small}) => (
-    <img src={small ? poisonBadgeSmall : poisonBadge} alt="Poison" className={styles.badge}/>
+    <div key="Poison">
+        <img src={small ? poisonBadgeSmall : poisonBadge} alt="Poison" className={styles.badge}/>
+    </div>
 )
