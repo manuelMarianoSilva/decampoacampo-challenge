@@ -157,6 +157,8 @@ export const PokemonList = () => {
         <Filters />
       </section>
 
+      {/* The scrollable container for the virtualized list. Ideally this would be a separate component,
+      particulary the error handling screens. Something for my todo list I guess.  */}
       <div ref={parentRef} className={styles.scrollContainer} onScroll={handleScroll}>
         {isLoading && items.length === 0 ? (
           <LoadingScreen />

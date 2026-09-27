@@ -5,6 +5,8 @@ import styles from "./DetailsView.module.css";
 import { ImageWithLoader } from "./ImageWithLoader.jsx";
 import pokeballSpin from "../../assets/animations/pokeball_spin.json"
 import pokeballLines from "../../assets/animations/pokeball_lines.json"
+import backArrow from "../../assets/images/back_arrow.svg"
+import emptyPokeball from "../../assets/images/empty_pokeball.png"
 import { LoadingScreen } from "../loadingScreen/LoadingScreen.jsx";
 
 
@@ -73,9 +75,12 @@ export const DetailsView = () => {
         ?? sprites[0]?.url
 
     return (
-        <>
-            <button onClick={navigateBack} className={styles.backButton}>Back</button>
-
+        <div className={styles.container}>
+            <div className={styles.backButtonContainer}>
+                <button onClick={navigateBack} className={styles.backButton}>
+                    <img src={backArrow} alt="Back" width={24} height={24} />
+                </button>
+            </div>
             <h1 className={styles.title}>{pokemon.name}</h1>
 
             {/* Main Sprite */}
@@ -89,11 +94,14 @@ export const DetailsView = () => {
                 />
             )}
 
-           {/* Alt Sprites */}
+            {/* Alt Sprites */}
             <section>
                 <h2>Sprites</h2>
                 {sprites.length === 0 ? (
-                    <p>No available sprites.</p>
+                    <div className={styles.noSpritesContainer}>
+                        <img src={emptyPokeball} alt="No available sprites." className={styles.noSpritesImg} />
+                        <p>There are no alternative sprites available for this Pokémon.</p>
+                    </div>
                 ) : (
                     <div className={styles.spritesGrid}>
                         {sprites.map((sprite) => (
@@ -164,6 +172,6 @@ export const DetailsView = () => {
                 <p>Height: {(pokemon.height / 10).toFixed(1)} m</p>
                 <p>Weight: {(pokemon.weight / 10).toFixed(1)} kg</p>
             </section>
-        </>
+        </div>
     )
 }
