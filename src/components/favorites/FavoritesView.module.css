@@ -1,0 +1,82 @@
+.view {
+  min-height: 100dvh;
+  padding: 1.5rem clamp(1rem, 4vw, 2.5rem) 2rem;
+  box-sizing: border-box;
+}
+
+.title {
+  margin: 0 0 1.25rem;
+  font-family: 'Pokemon Solid', sans-serif;
+  text-align: center;
+  text-transform: capitalize;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  grid-template-rows: repeat(2, minmax(0, 1fr));
+  gap: 1rem;
+  width: min(100%, 900px);
+  margin-inline: auto;
+}
+
+.slot {
+  min-width: 0;
+  min-height: 220px;
+}
+
+.emptySlot {
+  display: grid;
+  place-items: center;
+  width: 100%;
+  height: 100%;
+  min-height: 220px;
+  border: 2px dotted var(--border);
+  border-radius: 6px;
+  color: var(--text);
+  box-sizing: border-box;
+  transition: background-color 0.15s ease, border-color 0.15s ease;
+}
+
+.slotOver .emptySlot {
+  border-color: var(--accent);
+  background: var(--accent-bg);
+}
+
+@media (max-width: 680px) {
+  .grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    grid-template-rows: auto;
+  }
+
+  .emptySlot {
+    min-height: 190px;
+  }
+
+  .slot {
+    min-height: 190px;
+  }
+}
+
+@media (max-width: 420px) {
+  .grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+.backButton {
+    width: fit-content;
+    border: none;
+    background-color: transparent;
+    border-radius: 50px;
+    cursor: pointer;
+}
+
+.backButton:hover {
+    background-color: #f0f0f0;
+}
+
+.backButtonContainer {
+    display: flex;
+    margin-bottom: 1rem;
+}

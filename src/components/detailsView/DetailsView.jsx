@@ -1,5 +1,5 @@
 import { useGetPokemonById } from "../../hooks/useGetPokemonById";
-import { useNavigate, useSearchParams } from "react-router"
+import { useLocation, useNavigate, useSearchParams } from "react-router"
 import { typeIndex } from "../typeBadges/typeIndex.jsx";
 import styles from "./DetailsView.module.css";
 import { ImageWithLoader } from "./ImageWithLoader.jsx";
@@ -44,11 +44,17 @@ function getAllSprites(sprites) {
 
 export const DetailsView = () => {
     const navigate = useNavigate()
+    const location = useLocation()
     const [searchParams] = useSearchParams()
     const pokemonId = searchParams.get("id");
     const { data: pokemon, isLoading, error, refetch } = useGetPokemonById(pokemonId)
 
     const navigateBack = () => {
+        if (location.state?.from === "/favorites") {
+            navigate("/favorites")
+            return
+        }
+
         const listParams = new URLSearchParams(searchParams)
         listParams.delete("id")
         const query = listParams.toString()

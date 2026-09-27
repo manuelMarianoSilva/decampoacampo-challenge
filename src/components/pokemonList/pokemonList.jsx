@@ -63,7 +63,9 @@ export const PokemonList = () => {
 
   const dispatch = useDispatch()
   const savedScrollTop = useSelector((state) => state.pokemonList.scrollTop)
-  const favoriteCount = useSelector((state) => state.favorites.ids.length)
+  const favoriteCount = useSelector((state) =>
+    state.favorites.ids.filter(Boolean).length,
+  )
 
   const parentRef = useRef(null)
   const isRestoringRef = useRef(savedScrollTop > 0)

@@ -14,10 +14,9 @@ export const FavoriteButton = ({ pokemonId, pokemonName }) => {
   const lottieRef = useRef(null);
   const [isAnimating, setIsAnimating] = useState(false);
   const dispatch = useDispatch();
-  const isFavorite = useSelector((state) =>
-    state.favorites.ids.includes(pokemonId),
-  );
-  const favoriteCount = useSelector((state) => state.favorites.ids.length);
+  const favoriteIds = useSelector((state) => state.favorites.ids);
+  const isFavorite = favoriteIds.includes(pokemonId);
+  const favoriteCount = favoriteIds.filter(Boolean).length;
   const capitalizedPokemonName =
     pokemonName.charAt(0).toUpperCase() + pokemonName.slice(1);
   const isFavoriteRef = useRef(isFavorite);
