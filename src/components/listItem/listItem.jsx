@@ -2,7 +2,7 @@ import styles from "./ListItem.module.css";
 import { FavoriteButton } from "../favoriteButton/FavoriteButton.jsx";
 import { SpriteContainer } from "./SpriteContainer.jsx";
 import { TypeBadges } from "./TypeBadges.jsx";
-import { useNavigate, useSearchParams } from "react-router";
+import { useNavigate, useSearchParams } from "react-router-dom";
 
 
 export const ListItem = ({ pokemon }) => {

@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react"
-import { useSearchParams } from "react-router"
+import { useSearchParams } from "react-router-dom"
 import { TOTAL_GENERATIONS } from "../../utils/constants"
 import { typenames } from "../typeBadges/typeIndex.jsx"
 import styles from "./filters.module.css"

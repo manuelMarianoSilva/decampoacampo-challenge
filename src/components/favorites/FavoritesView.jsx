@@ -13,7 +13,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useGetGenerations } from "../../hooks/useGetGenerations";
 import { favoriteMoved, MAX_FAVORITES } from "../../store/favoritesSlice";
 import { FavoriteCard } from "./FavoriteCard.jsx";
-import { useNavigate } from "react-router";
+import { useNavigate } from "react-router-dom";
 import backArrow from "../../assets/images/back_arrow.svg";
 import sadAsh from "../../assets/images/sad_ash.png";
 import styles from "./FavoritesView.module.css";

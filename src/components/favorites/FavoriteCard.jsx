@@ -1,5 +1,5 @@
 import { useDraggable } from "@dnd-kit/core";
-import { useNavigate } from "react-router";
+import { useNavigate } from "react-router-dom";
 import { useGetPokemonById } from "../../hooks/useGetPokemonById";
 import { typeIndex } from "../typeBadges/typeIndex.jsx";
 import styles from "./FavoriteCard.module.css";

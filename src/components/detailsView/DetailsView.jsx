@@ -1,5 +1,5 @@
 import { useGetPokemonById } from "../../hooks/useGetPokemonById";
-import { useLocation, useNavigate, useSearchParams } from "react-router"
+import { useLocation, useNavigate, useSearchParams } from "react-router-dom"
 import { typeIndex } from "../typeBadges/typeIndex.jsx";
 import styles from "./DetailsView.module.css";
 import { ImageWithLoader } from "./ImageWithLoader.jsx";

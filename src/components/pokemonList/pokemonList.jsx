@@ -1,7 +1,7 @@
 import { useRef, useEffect, useLayoutEffect, useMemo } from "react"
 import { useVirtualizer } from "@tanstack/react-virtual"
 import { useDispatch, useSelector } from "react-redux"
-import { useNavigate, useSearchParams } from "react-router"
+import { useNavigate, useSearchParams } from "react-router-dom"
 import { useGetPokemonsPaginated } from "../../hooks/useGetPokemonsPaginated"
 import { useElementalTypes } from "../../hooks/useElementalTypes"
 import { useGetGenerations } from "../../hooks/useGetGenerations"
