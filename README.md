@@ -1,4 +1,4 @@
-# Aclaracion Previas
+# Aclaracion Previa
 
 El borrador general de este readme fue escrito por IA, luego editado a mano por su autor (o sea... yo) para asegurarse que contenia lo necesario. La única excepción es esta sección, escrita a mano por quien firma el programa. Sólo una cosa que aclarar por si la ven, el Initial Commit está firmado por `Alejandra`, la razón es simple, comencé a trabajar desde la máquina de mi esposa e hice ese commit antes de acordarme de actualizar los datos de usuario de Git
 
