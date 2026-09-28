@@ -1,4 +1,4 @@
-import { useRef, useEffect, useLayoutEffect } from "react"
+import { useRef, useEffect, useLayoutEffect, useMemo } from "react"
 import { useVirtualizer } from "@tanstack/react-virtual"
 import { useDispatch, useSelector } from "react-redux"
 import { useNavigate, useSearchParams } from "react-router"
@@ -50,33 +50,38 @@ export const PokemonList = () => {
     isLoading: generationsLoading,
     error: generationsError,
   } = useGetGenerations()
-  const typeId = typeNameIndex[filters.type]
+  const typeId = useMemo(() => typeNameIndex[filters.type], [filters.type])
   const filterIndexLoading = Boolean(
     (filters.type && typesLoading) || (filters.generation && generationsLoading),
   )
   const filterIndexError = (filters.type && typesError) || (filters.generation && generationsError)
   const indexesReady = !filterIndexLoading && !filterIndexError
-  const normalizedName = filters.name.trim().toLowerCase()
-  const filteredItems = indexesReady
-    ? items.filter((pokemon) => {
-        if (normalizedName && !pokemon.name.toLowerCase().includes(normalizedName)) {
-          return false
-        }
+  const normalizedName = useMemo(
+    () => filters.name.trim().toLowerCase(),
+    [filters.name],
+  )
+  const filteredItems = useMemo(() => {
+    if (!indexesReady) return []
 
-        const pokemonId = Number(pokemon.url.match(/\/pokemon\/(\d+)\//)?.[1])
-        if (filters.type && (!typeId || !allTypes?.[pokemonId]?.includes(typeId))) {
-          return false
-        }
-        if (
-          filters.generation &&
-          Number(generations?.[pokemonId]) !== Number(filters.generation)
-        ) {
-          return false
-        }
+    return items.filter((pokemon) => {
+      if (normalizedName && !pokemon.name.toLowerCase().includes(normalizedName)) {
+        return false
+      }
 
-        return true
-      })
-    : []
+      const pokemonId = Number(pokemon.url.match(/\/pokemon\/(\d+)\//)?.[1])
+      if (filters.type && (!typeId || !allTypes?.[pokemonId]?.includes(typeId))) {
+        return false
+      }
+      if (
+        filters.generation &&
+        Number(generations?.[pokemonId]) !== Number(filters.generation)
+      ) {
+        return false
+      }
+
+      return true
+    })
+  }, [indexesReady, items, normalizedName, filters.type, filters.generation, typeId, allTypes, generations])
 
   const savedScrollTop = useSelector((state) => state.pokemonList.scrollTop)
   const favoriteCount = useSelector((state) =>

@@ -74,6 +74,13 @@ Se decidió no incorporar una librería genérica de skeletons. En su lugar, las
 - Incorporar un service worker y cache del app shell si se requiere abrir o refrescar la aplicación completamente offline.
 - Añadir cache offline para sprites e información de detalle si se necesita una experiencia sin conexión más completa.
 - Medir y comparar latencia de inicio, tiempo de rehidratación y respuesta al scroll en dispositivos lentos; IndexedDB hace asíncrono el I/O, pero la serialización, el filtrado y la actualización de Redux aún consumen CPU.
+- Memoizar los componentes de fila y los callbacks de navegación con `React.memo` y `useCallback` para limitar re-renders innecesarios en listas virtualizadas.
+- Reducir el costo de restauración de scroll y de las lecturas de DOM para mantener la interfaz fluida durante cambios de filtro y navegación.
+- Medir el costo real del render del listado con React Profiler y perfiles de CPU en dispositivos lentos, no solo la latencia de red.
+- Precomputar índices por ID para tipos y generaciones y evitar parseos repetidos de URLs durante el filtrado.
+- Evaluar `useDeferredValue` o `startTransition` para cambios de filtro más pesados y mejorar la sensación de respuesta de la UI.
+- Separar mejor la lógica de “datos base” y “vista visible” para evitar derivaciones redundantes cuando cambia estado ajeno a la lista.
+- Añadir pruebas de integración para validar filtros, restauración de scroll y comportamiento de la lista virtualizada en diferentes estados.
 - Establecer un límite máximo o una política de poda por cantidad de páginas, además de la expiración actual por antigüedad.
 - Añadir tags de RTK Query (`providesTags` / `invalidatesTags`) para invalidación y actualización selectiva si se incorporan operaciones que modifiquen datos.
 - Aplicar estilos diferenciados a los toasts de favoritos: al agregar o quitar un Pokémon y al advertir que el equipo ya alcanzó el límite de seis.
