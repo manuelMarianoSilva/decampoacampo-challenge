@@ -39,7 +39,8 @@
 }
 
 .scrollContainer {
-    overflow: auto;
+    overflow-y: auto;
+    overflow-x: hidden;
     flex: 1;
     min-height: 0;
 }
