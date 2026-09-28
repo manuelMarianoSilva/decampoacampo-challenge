@@ -1,6 +1,6 @@
 # Aclaracion Previas
 
-El borrador general de este readme fue escrito por IA, luego editado a mano por su autor para asegurarse que contenia lo necesario. La única exepción es esta sección, escrita a mano por quien firma el programa. Sólo una cosa que aclarar por si la ven, el Initial Commit está firmado por `Alejandra`, la razón es simple, comencé a trabajar desde la máquina de mi esposa e hice ese commit antes de acordarme de actualizar los datos de usuario de Git
+El borrador general de este readme fue escrito por IA, luego editado a mano por su autor (o sea... yo) para asegurarse que contenia lo necesario. La única exepción es esta sección, escrita a mano por quien firma el programa. Sólo una cosa que aclarar por si la ven, el Initial Commit está firmado por `Alejandra`, la razón es simple, comencé a trabajar desde la máquina de mi esposa e hice ese commit antes de acordarme de actualizar los datos de usuario de Git
 
 Sin más que agregar, los dejo con la parte ya más técnica:
 
@@ -76,4 +76,5 @@ Se decidió no incorporar una librería genérica de skeletons. En su lugar, las
 - Medir y comparar latencia de inicio, tiempo de rehidratación y respuesta al scroll en dispositivos lentos; IndexedDB hace asíncrono el I/O, pero la serialización, el filtrado y la actualización de Redux aún consumen CPU.
 - Establecer un límite máximo o una política de poda por cantidad de páginas, además de la expiración actual por antigüedad.
 - Añadir tags de RTK Query (`providesTags` / `invalidatesTags`) para invalidación y actualización selectiva si se incorporan operaciones que modifiquen datos.
+- Aplicar estilos diferenciados a los toasts de favoritos: al agregar o quitar un Pokémon y al advertir que el equipo ya alcanzó el límite de seis.
 - Ampliar las pruebas automatizadas con pruebas de integración para IndexedDB, rehidratación del store y recuperación completa de paginación offline, y en lineas generales, darle cobertura de testing a toda la aplicación.
